@@ -11,12 +11,13 @@
       let
         pkgs = import nixpkgs { inherit system; };
         packages = {
-          gleam = with pkgs; [ gleam erlang ];
+          dev = with pkgs; [ just ];
+          gleam = with pkgs; [ gleam erlang nodejs-slim ];
         };
       in
       {
         devShell = pkgs.mkShell {
-          buildInputs = [ packages.gleam ];
+          buildInputs = [ packages.dev packages.gleam ];
         };
       });
 }
