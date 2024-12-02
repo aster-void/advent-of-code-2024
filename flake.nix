@@ -8,9 +8,15 @@
 
   outputs = { nixpkgs, utils, ... }:
     utils.lib.eachDefaultSystem (system:
-      let pkgs = import nixpkgs { inherit system; }; in {
+      let
+        pkgs = import nixpkgs { inherit system; };
+        packages = {
+          gleam = with pkgs; [ gleam erlang ];
+        };
+      in
+      {
         devShell = pkgs.mkShell {
-          buildInputs = with pkgs; [ gleam ];
+          buildInputs = [ packages.gleam ];
         };
       });
 }
