@@ -1,0 +1,6 @@
+run-1:
+    cargo run --bin step1 inputs/input.txt
+run-2:
+    cargo run --bin step2 inputs/input.txt
+test:
+    cargo test
