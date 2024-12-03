@@ -1,5 +1,6 @@
 day1 (parsing): Gleam
 day2 (fold): Haskell
+day3 (global mutable variable): TypeScript
 
 remaining:
 - Go
