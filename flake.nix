@@ -13,11 +13,12 @@
         packages = {
           dev = with pkgs; [ just ];
           gleam = with pkgs; [ gleam erlang nodejs-slim ];
+          haskell = with pkgs; [ stack haskell-language-server ];
         };
       in
       {
         devShell = pkgs.mkShell {
-          buildInputs = [ packages.dev packages.gleam ];
+          buildInputs = [ packages.dev packages.gleam packages.haskell ];
         };
       });
 }
