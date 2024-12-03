@@ -1,0 +1,5 @@
+run:
+    # change the name later
+    dune exec ocaml inputs/input.txt
+test:
+    dune test
