@@ -32,3 +32,14 @@ jobs:
       - uses: extractions/setup-just@v2
       # - run: just test # ... "test" doesn't work
       - uses: haskell-actions/run-ormolu@v14
+  day3:
+    name: "Test Day 3"
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: day3 } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: biomejs/setup-biome@v2
+      - run: biome check .
+      - uses: oven/setup-bun@v2
+      - run: bun test
+

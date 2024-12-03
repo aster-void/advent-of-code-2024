@@ -1,0 +1,6 @@
+run-1:
+    bun run src/main.ts 1
+run-2:
+    bun run src/main.ts 2
+test:
+    bun test
