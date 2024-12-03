@@ -1,8 +1,6 @@
 run-1:
     gleam run 2 inputs/input.txt
-test-1:
-    test `gleam run 2 ./inputs/test.txt` == 11
 run-2:
     gleam run 2 inputs/input.txt
-test-2:
-    test `gleam run 2 ./inputs/test.txt` == 31
+test:
+    gleam test
