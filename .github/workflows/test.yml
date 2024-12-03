@@ -22,3 +22,13 @@ jobs:
       - run: gleam deps download
       - run: gleam test
       - run: gleam format --check src test
+  day2:
+    name: "Test Day 2"
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: day2 } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: haskell-actions/setup@v2
+      - uses: extractions/setup-just@v2
+      - run: just test
+      - uses: haskell-actions/run-ormolu@v14

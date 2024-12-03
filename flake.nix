@@ -13,7 +13,7 @@
         packages = {
           dev = with pkgs; [ just ];
           gleam = with pkgs; [ gleam erlang_27 nodejs-slim ];
-          haskell = with pkgs; [ stack haskell-language-server ];
+          haskell = with pkgs; [ stack haskell-language-server ormolu ];
         };
       in
       {

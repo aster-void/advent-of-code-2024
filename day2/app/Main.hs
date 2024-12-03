@@ -1,7 +1,7 @@
 module Main (main) where
 
+import Lib (process, process')
 import qualified System.Environment as SE
-import Lib(process, process')
 
 main :: IO ()
 main = do
