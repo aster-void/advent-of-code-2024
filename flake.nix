@@ -16,7 +16,7 @@
           go = with pkgs; [ go ];
           rust = with pkgs; [ rustc cargo rust-analyzer ];
           c = with pkgs; [ gcc ];
-          cpp = with pkgs; [ clang clang-tools ];
+          cpp = with pkgs; [ clang-tools clang ]; # clang-tools must come first
           zig = with pkgs; [ zig zls ];
           haskell = with pkgs; [ stack haskell-language-server ormolu ];
           gleam = with pkgs; [ gleam erlang_27 ];
@@ -61,6 +61,9 @@
             nim
             lobster
           ];
+          shellHook = ''
+            export LIBRARY_PATH=${pkgs.stdenv.cc.cc.lib}/lib
+          '';
         };
       });
 }
