@@ -12,13 +12,55 @@
         pkgs = import nixpkgs { inherit system; };
         packages = {
           dev = with pkgs; [ just ];
-          gleam = with pkgs; [ gleam erlang_27 nodejs-slim ];
+
+          go = with pkgs; [ go ];
+          rust = with pkgs; [ rustc cargo rust-analyzer ];
+          c = with pkgs; [ gcc ];
+          cpp = with pkgs; [ clang clang-tools ];
+          zig = with pkgs; [ zig zls ];
           haskell = with pkgs; [ stack haskell-language-server ormolu ];
+          gleam = with pkgs; [ gleam erlang_27 ];
+          elixir = with pkgs; [ elixir elixir-ls ];
+          clojure = with pkgs; [ clojure clojure-lsp ];
+          ocaml = with pkgs; [ ocaml ocamlPackages.ocaml-lsp ];
+          fsharp = with pkgs; [ dotnet-sdk fsharp ];
+          csharp = with pkgs; [ dotnet-sdk csharp-ls ];
+          java = with pkgs; [ jdk23_headless ];
+          scala = with pkgs; [ scala-cli sbt metals ];
+          kotlin = with pkgs; [ kotlin kotlin-language-server ];
+          swift = with pkgs; [ swift sourcekit-lsp swiftlint swiftformat ];
+          dart = with pkgs; [ dart ];
+          javascript = with pkgs; [ bun ];
+          python = with pkgs; [ python312 python312Packages.python-lsp-server black ruff ];
+          nim = with pkgs; [ nim nimble nimlangserver ];
+          lobster = with pkgs; [ lobster ];
         };
       in
       {
         devShell = pkgs.mkShell {
-          buildInputs = [ packages.dev packages.gleam packages.haskell ];
+          buildInputs = with packages; [
+            dev
+            zig
+            c
+            go
+            cpp
+            rust
+            haskell
+            gleam
+            elixir
+            ocaml
+            fsharp
+            csharp
+            java
+            scala
+            kotlin
+            # swift
+            dart
+            javascript
+            python
+            nim
+            lobster
+          ];
         };
       });
 }
