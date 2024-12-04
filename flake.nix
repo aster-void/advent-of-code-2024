@@ -4,9 +4,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     utils.url = "github:numtide/flake-utils";
+    rules-mojo.url = "github:TraceMachina/rules_mojo";
+    rules-mojo.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, utils, ... }:
+  outputs = { nixpkgs, utils, rules-mojo, ... }:
     utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
@@ -34,6 +36,12 @@
           python = with pkgs; [ python312 python312Packages.python-lsp-server black ruff ];
           nim = with pkgs; [ nim nimble nimlangserver ];
           lobster = with pkgs; [ lobster ];
+          lua = with pkgs; [ lua lua-language-server ];
+          ruby = with pkgs; [ ruby ruby-lsp ];
+          php = with pkgs; [ php phpactor ];
+          julia = with pkgs; [ julia ]; # Apparently julia lsp is not published on nixpkgs
+          R = with pkgs; [ R ];
+          mojo = [ rules-mojo.packages.${system}.mojo ]; # Mojo is a very new language and there is no support for nix by nixpkgs team yet.
         };
       in
       {
@@ -60,6 +68,11 @@
             python
             nim
             lobster
+            ruby
+            php
+            julia
+            R
+            mojo
           ];
           shellHook = ''
             export LIBRARY_PATH=${pkgs.stdenv.cc.cc.lib}/lib
