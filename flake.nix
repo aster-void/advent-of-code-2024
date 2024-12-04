@@ -27,9 +27,9 @@
           ocaml = with pkgs; [ dune_3 ocaml ocamlPackages.ocaml-lsp ];
           fsharp = with pkgs; [ dotnet-sdk fsharp ];
           csharp = with pkgs; [ dotnet-sdk csharp-ls ];
-          java = with pkgs; [ jdk23_headless ];
+          java = with pkgs; [ jdk23_headless gradle java-language-server ];
           scala = with pkgs; [ scala-cli sbt metals ];
-          kotlin = with pkgs; [ kotlin kotlin-language-server ];
+          kotlin = with pkgs; [ kotlin jdk23_headless kotlin-language-server ];
           swift = with pkgs; [ swift sourcekit-lsp swiftlint swiftformat ];
           dart = with pkgs; [ dart ];
           javascript = with pkgs; [ bun ];

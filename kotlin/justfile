@@ -1,0 +1,4 @@
+compile:
+    kotlinc main.kt -include-runtime
+run: compile
+    java MainKt
