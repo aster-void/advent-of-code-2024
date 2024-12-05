@@ -1,5 +1,4 @@
 import argv
-import gleam/bool
 import gleam/int
 import gleam/io
 import gleam/list
@@ -43,7 +42,6 @@ pub fn part1(input: String) {
   let lines = parse_second_part(second)
   lines
   |> list.filter(keeping: fn(line) { line_ok(line, req) })
-  |> list.map(io.debug)
   |> list.map(take_middle_and_parse)
   |> int.sum
 }
@@ -58,7 +56,6 @@ pub fn part2(input: String) {
   lines
   |> list.filter(keeping: fn(line) { !line_ok(line, req) })
   |> list.map(fn(line) { fix_issue(line, req) })
-  |> list.map(io.debug)
   |> list.map(take_middle_and_parse)
   |> int.sum
 }
@@ -95,44 +92,35 @@ fn fix_issue(line, reqs) {
       let #(k, v) = a
       list.contains(line, k) && list.contains(line, v)
     })
-  io.debug(reqs)
   fix_issue_rec(line, reqs)
 }
 
 fn fix_issue_rec(line: List(String), reqs: List(#(String, String))) {
-  case line {
-    [] -> []
-    [head, ..rest] -> {
-      reqs
-      |> list.fold(from: #(False, head, rest), with: fn(state, must) {
-        let #(prev, head, rest) = state
-        use <- bool.guard(when: head != must.1, return: #(prev, head, rest))
-        case rest |> list.contains(must.0) {
-          False -> #(prev, head, rest)
-          True -> {
-            let next = #(
-              True,
-              must.0,
-              replace_first(rest, replace: must.0, with: must.1),
-            )
-            io.debug(must.0 <> "<>" <> must.1)
-            io.debug(
-              "Reordered from "
-              <> string.join([head, ..rest], ",")
-              <> " to "
-              <> string.join([next.1, ..next.2], ","),
-            )
-            next
-          }
+  reqs
+  |> list.fold(from: #(False, line), with: fn(state, req) {
+    case line {
+      [] -> state
+      [head, ..rest] -> {
+        let #(has_changed, line) = state
+        // if both are true, then they need to swap
+        let match_the_requirement = head != req.1 || !list.contains(rest, req.0)
+        let next = case match_the_requirement {
+          True -> line
+          False -> [req.0, ..replace_first(rest, replace: req.0, with: req.1)]
         }
-      })
-      |> fn(state) {
-        let #(did_swap, head, rest) = state
-        case did_swap {
-          True -> fix_issue_rec([head, ..rest], reqs)
-          False -> [head, ..fix_issue_rec(rest, reqs)]
-        }
+        #(has_changed || !match_the_requirement, next)
       }
+    }
+  })
+  |> fn(state) {
+    let #(did_swap, list) = state
+    case did_swap {
+      True -> fix_issue_rec(list, reqs)
+      False ->
+        case list {
+          [] -> []
+          [head, ..rest] -> [head, ..fix_issue_rec(rest, reqs)]
+        }
     }
   }
 }
