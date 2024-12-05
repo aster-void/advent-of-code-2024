@@ -38,7 +38,7 @@ jobs:
     defaults: { run: { working-directory: day3 } }
     steps:
       - uses: actions/checkout@v4
-      - uses: oven/setup-bun@v2
+      - uses: oven-sh/setup-bun@v2
       - run: bun test
       - uses: biomejs/setup-biome@v2
       - run: biome check .
@@ -50,3 +50,16 @@ jobs:
       - uses: extractions/setup-just@v2
       - uses: aminya/setup-cpp@v1
       - run: just test
+  day5:
+    name: "Test Day 5"
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: day5 } }
+    steps:
+      - uses: extractions/setup-just@v2
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: "27.1.2"
+          gleam-version: "1.6.2"
+          rebar3-version: "3"
+      - run: just test
+    
