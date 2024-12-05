@@ -1,4 +1,0 @@
-build:
-    clang++ main.cpp
-run: build
-    ./a.out

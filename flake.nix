@@ -75,7 +75,7 @@
             mojo
           ];
           shellHook = ''
-            export LIBRARY_PATH=${pkgs.stdenv.cc.cc.lib}/lib
+            # export LIBRARY_PATH=${pkgs.stdenv.cc.cc.lib}/lib
           '';
         };
       });

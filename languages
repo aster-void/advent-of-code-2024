@@ -1,12 +1,12 @@
 day1 (parsing): Gleam
 day2 (fold): Haskell
 day3 (global mutable variable): TypeScript
+day4 (scan): C++
 
 remaining:
 - Go
 - Rust
 - C
-- C++
 - Zig
 - OCaml
 - Clojure
