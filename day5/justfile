@@ -1,0 +1,9 @@
+run-1:
+    gleam run 1 inputs/input.txt
+run-2:
+    gleam run 2 inputs/input.txt
+test: test-1 test-2
+test-1:
+    @ test `gleam run 1 inputs/test.txt` == 143
+test-2:
+    @ test `gleam run 2 inputs/test.txt` == 123

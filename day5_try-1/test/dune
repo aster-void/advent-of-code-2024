@@ -1,5 +1,5 @@
 (test
  (name test)
  (modules test test_utils)
- (libraries ocaml)
+ (libraries day5)
 )

@@ -1,0 +1,5 @@
+run-1:
+    dune exec day5 1 inputs/input.txt
+test:
+    dune exec day5 1 inputs/test.txt
+    # dune test

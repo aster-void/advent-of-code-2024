@@ -24,7 +24,7 @@
           gleam = with pkgs; [ gleam erlang_27 ];
           elixir = with pkgs; [ elixir elixir-ls ];
           clojure = with pkgs; [ clojure clojure-lsp ];
-          ocaml = with pkgs; [ dune_3 ocaml ocamlPackages.ocaml-lsp ];
+          ocaml = with pkgs; [ dune_3 opam ocaml ocamlPackages.ocaml-lsp ];
           fsharp = with pkgs; [ dotnet-sdk fsharp ];
           csharp = with pkgs; [ dotnet-sdk csharp-ls ];
           java = with pkgs; [ jdk23_headless gradle java-language-server ];
@@ -76,6 +76,7 @@
           ];
           shellHook = ''
             # export LIBRARY_PATH=${pkgs.stdenv.cc.cc.lib}/lib
+            eval `opam env`
           '';
         };
       });
