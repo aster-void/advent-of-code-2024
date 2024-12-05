@@ -5,6 +5,18 @@ import gleam/list
 import gleam/string
 import simplifile
 
+pub fn read_file(from file) {
+  let file = simplifile.read(from: file)
+  let file = case file {
+    Ok(f) -> f
+    Error(err) -> {
+      io.debug(err)
+      panic as "Failed to read file. File doesn't exist?"
+    }
+  }
+  file
+}
+
 pub fn main() {
   let args = argv.load().arguments
   let #(part, file) = case args {
@@ -12,14 +24,7 @@ pub fn main() {
     _ ->
       panic as "you must provide part and file path in argument e.g. `gleam run 1 ./inputs/test.txt`"
   }
-  let file = simplifile.read(from: file)
-  let file = case file {
-    Ok(f) -> f
-    Error(err) -> {
-      io.debug(err)
-      panic
-    }
-  }
+  let file = read_file(file)
 
   case part {
     "1" -> part1(file)
