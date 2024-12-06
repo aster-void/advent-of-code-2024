@@ -16,6 +16,11 @@ jobs:
   # untested: day1(C), day2(Haskell), day4(C++)
   # - uses: extractions/setup-just@v2
   # - run: just test
+  test-ghactions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: test 1 = 1
+      - run: test 11 == 11
   day1:
     name: "Day 1"
     runs-on: ubuntu-latest
