@@ -43,7 +43,7 @@ jobs:
   day4:
     name: "Day 4"
     runs-on: ubuntu-latest
-    defaults: { run: { working-directory: day3 } }
+    defaults: { run: { working-directory: day4 } }
     steps:
       - uses: actions/checkout@v4
       - uses: extractions/setup-just@v2
