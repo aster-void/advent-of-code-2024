@@ -64,4 +64,14 @@ jobs:
           gleam-version: "1.6.2"
           rebar3-version: "3"
       - run: just test
+  day6:
+    name: "Test Day 6"
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: day5 } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+      - run: go test ./...
     
