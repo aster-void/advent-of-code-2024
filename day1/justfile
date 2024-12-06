@@ -6,7 +6,9 @@ run-1: compile
 run-2: compile
     ./a.out part2 inputs/input.txt
 
-test: compile test-1 test-2
+test: test compile test-1 test-2
+test-test:
+    test 1 == 1
 test-1: compile
     echo "`./a.out part1 inputs/test.txt`"
     test `./a.out part1 inputs/test.txt` == 11
