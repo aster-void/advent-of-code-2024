@@ -1,0 +1,6 @@
+run-1:
+    go run ./cmd/part1 ./inputs/input.txt
+run-2:
+    go run ./cmd/part2 ./inputs/input.txt
+test:
+    go test ./...
