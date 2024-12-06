@@ -12,10 +12,6 @@ defaults:
     shell: bash
 
 jobs:
-  # FIXME: "test" builtin cmd doesn't work on GitHub Actions, so use a testing lib for each language
-  # untested: day1(C), day2(Haskell), day4(C++)
-  # - uses: extractions/setup-just@v2
-  # - run: just test
   day1:
     name: "Day 1"
     runs-on: ubuntu-latest
@@ -31,8 +27,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: haskell-actions/setup@v2
-      - uses: extractions/setup-just@v2
       - uses: haskell-actions/run-ormolu@v14
+      - uses: extractions/setup-just@v2
+      - run: just test
   day3:
     name: "Day 3"
     runs-on: ubuntu-latest
@@ -43,6 +40,14 @@ jobs:
       - run: bun test
       - uses: biomejs/setup-biome@v2
       - run: biome check .
+  day4:
+    name: "Day 4"
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: day4 } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: extractions/setup-just@v2
+      - run: just test
   day5:
     name: "Day 5"
     runs-on: ubuntu-latest
