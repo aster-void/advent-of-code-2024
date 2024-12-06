@@ -1,6 +1,6 @@
-defmodule Aoc2024 do
+defmodule DayX do
   @moduledoc """
-  Documentation for `Aoc2024`.
+  Documentation for `DayX`.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule Aoc2024 do
 
   ## Examples
 
-      iex> Aoc2024.hello()
+      iex> DayX.hello()
       :world
 
   """
