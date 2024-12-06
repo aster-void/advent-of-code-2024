@@ -1,0 +1,8 @@
+run-1:
+    gleam run 2 inputs/input.txt
+run-2:
+    gleam run 2 inputs/input.txt
+test:
+    gleam test
+format:
+    gleam format

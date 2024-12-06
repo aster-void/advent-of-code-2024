@@ -1,4 +1,4 @@
-name: test
+name: "Test"
 
 on:
   push:
@@ -7,33 +7,34 @@ on:
       - main
   pull_request:
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
+  # FIXME: "test" builtin cmd doesn't work on GitHub Actions, so use a testing lib for each language
+  # untested: day1(C), day2(Haskell), day4(C++)
+  # - uses: extractions/setup-just@v2
+  # - run: just test
   day1:
-    name: "Test Day 1"
+    name: "Day 1"
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: day1 } }
     steps:
       - uses: actions/checkout@v4
-      - uses: erlef/setup-beam@v1
-        with:
-          otp-version: "27.1.2"
-          gleam-version: "1.6.2"
-          rebar3-version: "3"
-      - run: gleam deps download
-      - run: gleam test
-      - run: gleam format --check src test
+      - uses: extractions/setup-just@v2
+      - run: just test
   day2:
-    name: "Test Day 2"
+    name: "Day 2"
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: day2 } }
     steps:
       - uses: actions/checkout@v4
       - uses: haskell-actions/setup@v2
       - uses: extractions/setup-just@v2
-      # - run: just test # ... "test" doesn't work
       - uses: haskell-actions/run-ormolu@v14
   day3:
-    name: "Test Day 3"
+    name: "Day 3"
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: day3 } }
     steps:
@@ -42,17 +43,8 @@ jobs:
       - run: bun test
       - uses: biomejs/setup-biome@v2
       - run: biome check .
-  day4:
-    name: "Test Day 4"
-    runs-on: ubuntu-latest
-    defaults: { run: { working-directory: day4 } }
-    steps:
-      - uses: actions/checkout@v4
-      # FIXME: "test" builtin cmd doesn't work on GitHub Actions, so use a C++ Testing Lib
-      # - uses: extractions/setup-just@v2
-      # - run: just test
   day5:
-    name: "Test Day 5"
+    name: "Day 5"
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: day5 } }
     steps:
@@ -65,7 +57,7 @@ jobs:
           rebar3-version: "3"
       - run: just test
   day6:
-    name: "Test Day 6"
+    name: "Day 6"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
