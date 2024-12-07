@@ -83,6 +83,4 @@ jobs:
         with:
           otp-version: "27.1.2"
           rebar3-version: "3"
-      - run: just test
-    
-    
+      - run: just test  
