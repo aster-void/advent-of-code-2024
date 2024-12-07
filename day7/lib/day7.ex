@@ -1,4 +1,4 @@
-defmodule Part1 do
+defmodule Day7 do
   @moduledoc """
   Documentation for `Day7 - Part1`.
   """
@@ -8,28 +8,41 @@ defmodule Part1 do
 
   ## Examples
 
-      iex> Part1.total("190: 10 19")
+      iex> Day7.part1("190: 10 19")
       190
 
-      iex> Part1.total("191: 10 19")
+      iex> Day7.part2("191: 10 19")
       0
 
   """
-  @spec total(String.t()) :: Integer.t()
-  def total(lines) do
+  @spec part1(String.t()) :: Integer.t()
+  def part1(lines) do
+    total(lines, &part1_generator/1)
+  end
+  @spec part2(String.t()) :: Integer.t()
+  def part2(lines) do
+    total(lines, &part2_generator/1)
+  end
+    
+  @spec total(String.t(), (list() -> list())) :: Integer.t()
+  def total(lines, generator) do
     lines
     |> String.split("\n")
-    |> Enum.map(&(line &1))
+    # just Enum.map is ok, but this parallelism speeds up the total process up to ~3x
+    |> Enum.map(&(Task.async(fn ->
+      line(&1, generator)
+    end)))
+    |> Enum.map(&Task.await/1)
     |> Enum.reduce(&+/2)
   end
 
-  def line(line) do
+  def line(line, generator) do
     case Share.parse_line(line) do
       :empty -> 0
       {expected, nums} -> 
         [first | rest] = nums
         result = List.duplicate("+", length(nums) - 1)
-        |> enumerate(fn x ->
+        |> enumerate(generator, fn x ->
           case Share.calc(first, List.zip([x, rest])) do
             ^expected -> {:end, :ok}
             _ -> :continue
@@ -42,72 +55,35 @@ defmodule Part1 do
     end
   end
 
-  def enumerate(list, func) do
-    case func.(list) do
+  @spec enumerate(list(el), (list(el) -> list(el)), (list(el) -> {:end, t} | :continue)) :: t when t: var, el: var
+  def enumerate(list, next, each) do
+    case each.(list) do
       {:end, val} -> val
-      :continue -> case next_of(list) do
+      :continue -> case next.(list) do
         :end -> :not_found
-        other -> enumerate(other, func)
+        other -> enumerate(other, next, each)
       end
     end
   end
-  def next_of(list) do
+  
+  def part1_generator(list) do
     case list do
       [] -> :end
       ["+" | rest] -> ["*" | rest]
-      ["*" | rest] -> 
-        case next_of(rest) do
+      ["*" | rest] ->
+        case part1_generator(rest) do
           :end -> :end
           other -> ["+" | other]
         end
     end
   end
-end
-
-defmodule Part2 do
-  @spec total(String.t()) :: Integer.t()
-  def total(lines) do
-    lines
-    |> String.split("\n")
-    |> Enum.map(&(line&1))
-    |> Enum.reduce(&+/2)
-  end
-  def line(line) do
-    case Share.parse_line(line) do
-      :empty -> 0
-      {expected, nums} -> 
-        [first | rest] = nums
-        result = List.duplicate("+", length(nums) - 1)
-        |> enumerate(fn x ->
-          case Share.calc(first, List.zip([x, rest])) do
-            ^expected -> {:end, :ok}
-            _ -> :continue
-          end
-        end)
-        case result do
-          :ok -> expected
-          :not_found -> 0
-        end
-    end
-  end
-  def enumerate(list, func) do
-    case func.(list) do
-      {:end, val} -> 
-        val
-      :continue -> case next_of(list) do
-        :end -> 
-          :not_found
-        other -> enumerate(other, func)
-      end
-    end
-  end
-  def next_of(list) do
+  def part2_generator(list) do
     case list do
       [] -> :end
       ["+" | rest] -> ["*" | rest]
       ["*" | rest] -> ["||" | rest]
       ["||" | rest] ->
-        case next_of(rest) do
+        case part2_generator(rest) do
           :end -> :end
           other -> ["+" | other]
         end
@@ -116,7 +92,7 @@ defmodule Part2 do
 end
 
 defmodule Share do
-  @spec parse_line(String.t()) :: {Integer.t(), list()}
+  @spec parse_line(String.t()) :: {Integer.t(), list()} | :empty
   def parse_line(line) do
     case line |> String.split(":") do
       [""] -> :empty
