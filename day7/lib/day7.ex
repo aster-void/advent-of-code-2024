@@ -15,36 +15,34 @@ defmodule Day7 do
   """
   @spec part1(String.t()) :: Integer.t()
   def part1(lines) do
-    total(lines, &part1_generator/1)
+    total(lines, ["+", "*"])
   end
   @spec part2(String.t()) :: Integer.t()
   def part2(lines) do
-    total(lines, &part2_generator/1)
+    total(lines, ["+", "*", "||"])
   end
 
-  @spec total(String.t(), (list() -> list())) :: Integer.t()
-  def total(lines, generator) do
+  @spec total(String.t(), list(String.t())) :: Integer.t()
+  def total(lines, operators) do
     lines
     |> String.split("\n")
     # just Enum.map is ok, but this parallelism speeds up the total process up to ~3x
     |> Enum.map(
       &Task.async(fn ->
-        line(&1, generator)
+        line(&1, operators)
       end)
     )
     |> Enum.map(&Task.await/1)
     |> Enum.reduce(&+/2)
   end
 
-  def line(line, generator) do
+  def line(line, operators) do
     case Share.parse_line(line) do
       :empty -> 0
       {expected, nums} ->
-        [first | rest] = nums
         result =
-          List.duplicate("+", length(rest))
-          |> enumerate(generator, fn operators ->
-            case Share.calc(first, List.zip([operators, rest])) do
+          enumerate(length(nums) - 1, operators, fn ops ->
+            case Share.calc(nums, ops) do
               ^expected -> {:end, :ok}
               _ -> :continue
             end
@@ -56,38 +54,41 @@ defmodule Day7 do
     end
   end
 
-  @spec enumerate(list(el), (list(el) -> list(el)), (list(el) -> {:end, t} | :continue)) :: t | :not_found
-    when t: var, el: var
-  def enumerate(list, next, each) do
+  @spec enumerate(Integer.t(), list(String.t()), (list(String.t()) -> {:end, t} | :continue)) :: t | :not_found
+    when t: var
+  def enumerate(for, operators, each) when is_integer(for) do
+    init = List.duplicate(List.first(operators), for)
+    enumerate(init, operators, each)
+  end
+
+  @spec enumerate(list(String.t()), list(String.t()), (list(String.t()) -> {:end, t} | :continue)) :: t | :not_found
+    when t: var
+  def enumerate(list, operators, each)
+    when is_list(list)
+  do
     case each.(list) do
       {:end, val} -> val
-      :continue -> case next.(list) do
+      :continue -> case next(list, operators) do
         :end -> :not_found
-        other -> enumerate(other, next, each)
+        other -> enumerate(other, operators, each)
       end
     end
   end
 
-  def part1_generator(list) do
+  def next(list, operators) do
     case list do
       [] -> :end
-      ["+" | rest] -> ["*" | rest]
-      ["*" | rest] -> case part1_generator(rest) do
-        :end -> :end
-        other -> ["+" | other]
-      end
-    end
-  end
-
-  def part2_generator(list) do
-    case list do
-      [] -> :end
-      ["+" | rest] -> ["*" | rest]
-      ["*" | rest] -> ["||" | rest]
-      ["||" | rest] -> case part2_generator(rest) do
-        :end -> :end
-        other -> ["+" | other]
-      end
+      [op | rest] ->
+        if op == List.last(operators) do
+          case next(rest, operators) do
+            :end -> :end
+            other -> [List.first(operators) | other]
+          end
+        else
+          index = Share.find_index(operators, op)
+          new = operators |> Enum.at(index + 1)
+          [new | rest]
+        end
     end
   end
 end
@@ -115,11 +116,11 @@ defmodule Share do
     end
   end
 
-  @spec calc(Integer.t(), list({String.t(), Integer.t()})) :: Integer.t()
-  def calc(init, list) do
-    list
-    |> Enum.reduce(init, fn x, acc ->
-      case x do
+  @spec calc(list(Integer.t()), list(String.t())) :: Integer.t()
+  def calc(list, operations) do
+    [init | rem] = list
+    Enum.reduce(List.zip([operations, rem]), init, fn op, acc ->
+      case op do
         {"+", val} -> acc + val
         {"*", val} -> acc * val
         {"||", val} ->
@@ -128,5 +129,11 @@ defmodule Share do
           end
       end
     end)
+  end
+
+  @spec find_index(list(t), t) :: non_neg_integer() | nil
+    when t: any
+  def find_index(list, el) do
+    Enum.find_index(list, fn x -> el == x end)
   end
 end
