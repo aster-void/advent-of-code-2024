@@ -43,8 +43,8 @@ defmodule Day7 do
         [first | rest] = nums
         result =
           List.duplicate("+", length(rest))
-          |> enumerate(generator, fn ops ->
-            case Share.calc(first, List.zip([ops, rest])) do
+          |> enumerate(generator, fn operators ->
+            case Share.calc(first, List.zip([operators, rest])) do
               ^expected -> {:end, :ok}
               _ -> :continue
             end
