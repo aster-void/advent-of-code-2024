@@ -1,3 +1,3 @@
-# Day X
+# Day 7
 
-**TODO: Add description**
+solves day 7.
