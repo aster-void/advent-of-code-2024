@@ -72,4 +72,17 @@ jobs:
           cache-dependency-path: day6/go.sum
       - run: go test ./...
         working-directory: day6
+  day7:
+    name: "Day 7"
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: day7 } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: extractions/setup-just@v2
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: "27.1.2"
+          rebar3-version: "3"
+      - run: just test
+    
     

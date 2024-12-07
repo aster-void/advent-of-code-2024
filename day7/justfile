@@ -1,0 +1,6 @@
+run-1:
+    mix run src/main.exs part1 inputs/input.txt
+run-2:
+    mix run src/main.exs part2 inputs/input.txt
+test:
+    mix test
