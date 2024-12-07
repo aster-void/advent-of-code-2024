@@ -78,9 +78,8 @@ jobs:
     defaults: { run: { working-directory: day7 } }
     steps:
       - uses: actions/checkout@v4
-      - uses: extractions/setup-just@v2
       - uses: erlef/setup-beam@v1
         with:
           otp-version: "27.1.2"
           rebar3-version: "3"
-      - run: just test  
+      - run: mix test  
