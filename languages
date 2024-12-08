@@ -3,6 +3,9 @@ day2 (fold): Haskell
 day3 (global mutable variable): TypeScript
 day4 (scan): C++
 day5 (ordering list): Gleam
+day6 (tracing player movement): Go
+day7 (scan over permutations): Elixir
+day8 (point arithmetic): Rust
 
 remaining:
 - Go
