@@ -1,4 +1,4 @@
-use day_x::{read_file, step1};
+use day8::{read_file, step1};
 
 fn main() {
     let args = std::env::args().collect::<Vec<_>>();
