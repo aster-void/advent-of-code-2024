@@ -1,4 +1,4 @@
 run-1:
     crystal run src/part1.cr -- input.txt
-test:
-    crystal run src/part1.cr -- test.txt
+run-2:
+    crystal run src/part2.cr -- input.txt
