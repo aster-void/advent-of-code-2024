@@ -33,15 +33,16 @@
           swift = with pkgs; [ swift sourcekit-lsp swiftlint swiftformat ];
           dart = with pkgs; [ dart ];
           javascript = with pkgs; [ bun ];
+          ruby = with pkgs; [ ruby ruby-lsp ];
+          php = with pkgs; [ php phpactor ];
           python = with pkgs; [ python312 python312Packages.python-lsp-server black ruff ];
           nim = with pkgs; [ nim nimble nimlangserver ];
           lobster = with pkgs; [ lobster ];
           lua = with pkgs; [ lua lua-language-server ];
-          ruby = with pkgs; [ ruby ruby-lsp ];
-          php = with pkgs; [ php phpactor ];
           julia = with pkgs; [ julia ]; # Apparently julia lsp is not published on nixpkgs
-          R = with pkgs; [ R ];
+          crystal = with pkgs; [ crystal crystalline ];
           mojo = [ rules-mojo.packages.${system}.mojo ]; # Mojo is a very new language and there is no support for nix by nixpkgs team yet.
+          R = with pkgs; [ R ];
         };
       in
       {
@@ -65,14 +66,15 @@
             # swift
             dart
             javascript
+            ruby
+            php
             python
             nim
             lobster
-            ruby
-            php
+            crystal
             julia
-            R
             mojo
+            R
           ];
           shellHook = ''
             # export LIBRARY_PATH=${pkgs.stdenv.cc.cc.lib}/lib
