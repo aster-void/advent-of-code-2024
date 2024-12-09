@@ -1,0 +1,13 @@
+name: day9
+version: 0.1.0
+
+authors:
+  - aster <137767097+aster-void@users.noreply.github.com>
+
+targets:
+  day9:
+    main: src/day9.cr
+
+crystal: '>= 1.14.0'
+
+license: MIT
