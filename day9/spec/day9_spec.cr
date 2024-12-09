@@ -1,9 +1,12 @@
 require "./spec_helper"
 
 describe Day9 do
-  # TODO: Write tests
-
-  it "works" do
-    false.should eq(true)
+  it "should solve part1" do
+    content = File.read "./test.txt"
+    Day9.part1(content).should eq(1928)
+  end
+  it "should solve part2" do
+    content = File.read "./test.txt"
+    Day9.part2(content).should eq(2858)
   end
 end

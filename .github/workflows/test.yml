@@ -105,3 +105,11 @@ jobs:
       - run: cargo test
       - run: cargo fmt
       - run: cargo clippy
+  day9:
+    name: "Day 9"
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: day9 } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: crystal-lang/install-crystal@v1
+      - run: crystal spec
