@@ -1,0 +1,8 @@
+compile:
+    nim compile -d:release day10.nim
+run-1: compile
+    ./main part1 input.txt
+run-2: compile
+    ./main part2 input.txt
+test:
+    nim r main.nim test

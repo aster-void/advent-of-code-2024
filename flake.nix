@@ -38,7 +38,7 @@
           ruby = with pkgs; [ ruby ruby-lsp ];
           php = with pkgs; [ php phpactor ];
           python = with pkgs; [ python312 python312Packages.python-lsp-server black ruff ];
-          nim = with pkgs; [ nim nimble nimlangserver ];
+          nim = with pkgs; [ nim nimble nimlangserver glibc ];
           lobster = with pkgs; [ lobster ];
           v = with pkgs; [ vlang v-analyzer glibc.static ];
           lua = with pkgs; [ lua lua-language-server ];

@@ -7,6 +7,7 @@ day6 (tracing player movement): Go
 day7 (scan over permutations): Elixir
 day8 (point arithmetic): Rust
 day9 (insert / delete): Crystal
+day10 (repeatedly scanning field): Nim
 
 remaining:
 - Zig
@@ -21,5 +22,4 @@ remaining:
 - Dart
 - JavaScript
 - Python
-- Nim
 - Lobster
