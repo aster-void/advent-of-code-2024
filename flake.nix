@@ -11,6 +11,8 @@
   outputs = { nixpkgs, utils, rules-mojo, ... }:
     utils.lib.eachDefaultSystem (system:
       let
+        v-analyzer = [ ]; # ((import ./build/flake.nix).outputs { inherit nixpkgs; }).packages.${system}.default;
+
         pkgs = import nixpkgs { inherit system; };
         packages = {
           dev = with pkgs; [ just ];
@@ -38,6 +40,7 @@
           python = with pkgs; [ python312 python312Packages.python-lsp-server black ruff ];
           nim = with pkgs; [ nim nimble nimlangserver ];
           lobster = with pkgs; [ lobster ];
+          v = with pkgs; [ vlang v-analyzer glibc.static ];
           lua = with pkgs; [ lua lua-language-server ];
           julia = with pkgs; [ julia ]; # Apparently julia lsp is not published on nixpkgs
           crystal = with pkgs; [ crystal crystalline ];
@@ -72,6 +75,8 @@
             nim
             lobster
             crystal
+            v
+            lua
             julia
             mojo
             R
