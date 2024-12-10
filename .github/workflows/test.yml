@@ -114,7 +114,7 @@ jobs:
       - uses: crystal-lang/install-crystal@v1
       - run: crystal spec
   day10:
-    name: "Day 9"
+    name: "Day 10"
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: day10 } }
     steps:
