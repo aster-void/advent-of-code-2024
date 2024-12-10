@@ -1,3 +1,0 @@
-(library
- (public_name day5)
- (name day5))
