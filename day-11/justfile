@@ -1,0 +1,6 @@
+run-1:
+    python3 day11.py part1 input.txt
+run-2:
+    python3 day11.py part2 input.txt
+test:
+    python3 day11.py test

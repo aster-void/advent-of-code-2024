@@ -1,13 +1,14 @@
-day1 (parsing): Gleam
-day2 (fold): Haskell
-day3 (global mutable variable): TypeScript
-day4 (scan): C++
-day5 (ordering list): Gleam
-day6 (tracing player movement): Go
-day7 (scan over permutations): Elixir
-day8 (point arithmetic): Rust
-day9 (insert / delete): Crystal
-day10 (repeatedly scanning field): Nim
+Day 01 (parsing): Gleam
+Day 02 (fold): Haskell
+Day 03 (global mutable variable): TypeScript
+Day 04 (scan): C++
+Day 05 (ordering list): Gleam
+Day 06 (tracing player movement): Go
+Day 07 (scan over permutations): Elixir
+Day 08 (point arithmetic): Rust
+Day 09 (insert / delete): Crystal
+Day 10 (repeatedly scanning field): Nim
+Day 11 (cache): Python
 
 remaining:
 - Zig
