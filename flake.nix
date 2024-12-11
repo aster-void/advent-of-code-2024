@@ -81,7 +81,7 @@
       in
       {
         devShell = pkgs.mkShell {
-          buildInputs = with packages; [ v ];
+          buildInputs = with packages; [ all ];
           shellHook = ''
             eval `opam env`
           '';
