@@ -11,7 +11,7 @@
   outputs = { nixpkgs, utils, rules-mojo, ... }:
     utils.lib.eachDefaultSystem (system:
       let
-        v-analyzer = [ ]; # ((import ./build/flake.nix).outputs { inherit nixpkgs; }).packages.${system}.default;
+        v-analyzer = (import ./build/v-analyzer.nix) { inherit pkgs; };
 
         pkgs = import nixpkgs { inherit system; };
         packages = {
@@ -46,11 +46,7 @@
           crystal = with pkgs; [ crystal crystalline ];
           mojo = [ rules-mojo.packages.${system}.mojo ]; # Mojo is a very new language and there is no support for nix by nixpkgs team yet.
           R = with pkgs; [ R ];
-        };
-      in
-      {
-        devShell = pkgs.mkShell {
-          buildInputs = with packages; [
+          all = with packages; [
             dev
             zig
             c
@@ -81,8 +77,12 @@
             mojo
             R
           ];
+        };
+      in
+      {
+        devShell = pkgs.mkShell {
+          buildInputs = with packages; [ v ];
           shellHook = ''
-            # export LIBRARY_PATH=${pkgs.stdenv.cc.cc.lib}/lib
             eval `opam env`
           '';
         };

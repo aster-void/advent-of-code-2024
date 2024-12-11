@@ -1,5 +1,9 @@
 module main
 
 fn main() {
-	println('Hello World!')
+	println(square(3).str())
+}
+
+fn square(val int) int {
+	return val * val
 }
