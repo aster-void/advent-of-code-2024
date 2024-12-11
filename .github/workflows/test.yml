@@ -121,3 +121,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: jiro4989/setup-nim-action@v2
       - run: nim r main.nim test
+  day-11:
+    name: "Day 11"
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: day-11 } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@
+      - run: python3 day11.py test

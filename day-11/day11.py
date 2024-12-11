@@ -2,6 +2,7 @@ import sys
 
 cache: dict[str, int] = {}
 
+
 # returns how many the stone will be after blinking (blinks) times
 def blink(stone: int, blinks: int) -> int:
     if blinks == 0:
@@ -14,7 +15,7 @@ def blink(stone: int, blinks: int) -> int:
     elif len(str(stone)) % 2 == 0:
         str_stone = str(stone)
         half = len(str_stone) // 2
-        fst = int(str_stone[: half])
+        fst = int(str_stone[:half])
         snd = int(str_stone[half:])
         result = blink(fst, blinks - 1) + blink(snd, blinks - 1)
     else:
@@ -22,7 +23,6 @@ def blink(stone: int, blinks: int) -> int:
 
     cache[(stone, blinks)] = result
     return result
-
 
 
 def solve(input: list[int], count: int) -> int:
