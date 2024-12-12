@@ -28,8 +28,8 @@
           clojure = with pkgs; [ clojure clojure-lsp ];
           ocaml = with pkgs; [ dune_3 opam ocaml ocamlPackages.ocaml-lsp ];
           fsharp = with pkgs; [ dotnet-sdk fsharp ];
-          csharp = with pkgs; [ dotnet-sdk csharp-ls ];
-          java = with pkgs; [ jdk23_headless gradle java-language-server ];
+          csharp = with pkgs; [ dotnet-sdk csharp-ls roslyn-ls ];
+          java = with pkgs; [ jdk23_headless gradle java-language-server jdt-language-server ];
           scala = with pkgs; [ scala-cli sbt metals ];
           kotlin = with pkgs; [ kotlin jdk23_headless kotlin-language-server ];
           swift = with pkgs; [ swift sourcekit-lsp swiftlint swiftformat ];
