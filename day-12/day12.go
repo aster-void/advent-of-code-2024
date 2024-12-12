@@ -91,7 +91,9 @@ func solve(input string, part int) int {
 				}
 				if (field.At(check) == nil || *field.At(check) != char) &&
 					(field.At(next) == nil || *field.At(next) != char) {
-					// fmt.Println("outward corner of", string(char), ":", coord, "for", check, "and", next, "are both not char")
+					// aab
+					// aAb
+					// bbb
 					corners += 1
 				}
 			}
@@ -109,7 +111,10 @@ func solve(input string, part int) int {
 						x: coord.x + delta.x,
 						y: coord.y,
 					}) != char {
-						// normal perim
+						// normal perim e.g.
+						// aaa
+						// a*a
+						// bbB
 						continue
 					}
 					if *field.At(Coord{
@@ -117,9 +122,14 @@ func solve(input string, part int) int {
 						y: coord.y + delta.y,
 					}) != char {
 						// normal perim
+						// aab
+						// a*b
+						// aaB
 						continue
 					}
-					// fmt.Println("inward corner of", string(char), ":", coord)
+					// aaa
+					// a*a
+					// aaB
 					corners += 1
 				}
 			}
