@@ -5,6 +5,8 @@ import (
 	"log"
 	"os"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_part1_Small(t *testing.T) {
@@ -13,9 +15,7 @@ func Test_part1_Small(t *testing.T) {
 		BBCD
 		BBCC
 		EEEC`
-	if got := day12.Part1(input); got != 140 {
-		t.Error("Expected 140, but got ", got)
-	}
+	assert.Equal(t, 140, day12.Part1(input))
 }
 
 func Test_part1_SampleFile(t *testing.T) {
@@ -24,9 +24,7 @@ func Test_part1_SampleFile(t *testing.T) {
 		log.Fatalln("Failed to open file: ./test.txt with reason:", err)
 	}
 	input := string(f)
-	if got := day12.Part1(input); got != 1930 {
-		t.Error("Expected 1930, but got ", got)
-	}
+	assert.Equal(t, 1930, day12.Part1(input))
 }
 func Test_part2_Small_ABCDE(t *testing.T) {
 	input := `
@@ -34,46 +32,35 @@ func Test_part2_Small_ABCDE(t *testing.T) {
 		BBCD
 		BBCC
 		EEEC`
-	if got := day12.Part2(input); got != 80 {
-		t.Error("Expected 80, but got ", got)
-	}
+	assert.Equal(t, 80, day12.Part2(input))
 }
 func Test_part2_Small_XO(t *testing.T) {
 	input := `
-	OOOOO
-	OXOXO
-	OOOOO
-	OXOXO
-	OOOOO
-`
-	if got := day12.Part2(input); got != 436 {
-		t.Error("Expected 436, but got ", got)
-	}
+		OOOOO
+		OXOXO
+		OOOOO
+		OXOXO
+		OOOOO`
+	assert.Equal(t, 436, day12.Part2(input))
 }
 func Test_part2_Small_Es(t *testing.T) {
 	input := `
-	EEEEE
-	EXXXX
-	EEEEE
-	EXXXX
-	EEEEE
-`
-	if got := day12.Part2(input); got != 236 {
-		t.Error("Expected 236, but got ", got)
-	}
+		EEEEE
+		EXXXX
+		EEEEE
+		EXXXX
+		EEEEE`
+	assert.Equal(t, 236, day12.Part2(input))
 }
 func Test_part2_Small_AB(t *testing.T) {
 	input := `
-	AAAAAA
-	AAABBA
-	AAABBA
-	ABBAAA
-	ABBAAA
-	AAAAAA
-	`
-	if got := day12.Part2(input); got != 368 {
-		t.Error("Expected 368, but got ", got)
-	}
+		AAAAAA
+		AAABBA
+		AAABBA
+		ABBAAA
+		ABBAAA
+		AAAAAA`
+	assert.Equal(t, 368, day12.Part2(input))
 }
 func Test_part2_SampleFile(t *testing.T) {
 	f, err := os.ReadFile("./test.txt")
@@ -81,7 +68,5 @@ func Test_part2_SampleFile(t *testing.T) {
 		log.Fatalln("Failed to open file: ./test.txt with reason:", err)
 	}
 	input := string(f)
-	if got := day12.Part2(input); got != 1206 {
-		t.Error("Expected 1206, but got ", got)
-	}
+	assert.Equal(t, 1206, day12.Part2(input))
 }
