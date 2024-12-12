@@ -97,7 +97,7 @@ func solve(input string, part int) int {
 					corners += 1
 				}
 			}
-			// 270 degree Corner, pointing inwards (2 if perim = 3)
+			// 270 degree Corner
 			for _, delta := range corner_deltas {
 				check := Coord{
 					x: coord.x + delta.x,
